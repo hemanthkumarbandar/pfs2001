@@ -1,0 +1,23 @@
+body{
+    background-image: url("https://nkgadyar.scientificstudy.in/images/LoginPage/loginImage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #d9f9fa;
+
+}
+body a{
+    border: 3px solid #542694;
+    padding: 6px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    background-color: #542694;
+    font-size: 25px;
+    display: inline-block; /* Allows width to take effect */
+    width: 14%;
+    text-align: center;
+}
+body a:hover{
+    background-color: transparent;
+    color: #542694;
+}

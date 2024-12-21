@@ -1,0 +1,17 @@
+{% extends 'dashboard.html' %}
+{% block addcss %}
+    <title>add</title>
+    <link rel="stylesheet" href="#">
+{% endblock %}   
+{% block content %}
+    <section>
+        <div class="content">
+            <form method="POST">
+            <h2>Title:</h2>
+            <p>{{notes[1]}}</p>
+            <h2>Description</h2>
+            <p>{{notes[2]}}</p>
+            <p>Created At:{{notes[3]}}</p>
+        </div>
+    </section>
+{% endblock %}

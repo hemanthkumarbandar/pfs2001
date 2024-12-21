@@ -1,0 +1,27 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: whitesmoke;
+    color: rgb(69, 30, 105);
+    font-size: 23px;
+}
+.navbar a{
+    text-decoration: none;
+}
+body{
+    margin: 0%;
+    background-image: url("https://cdn.prod.website-files.com/5a9ee6416e90d20001b20038/64f5dd642638a92e7481b053_Rectangle%20(70).svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.navbar select{
+    border: none;
+    font-size: 18px;
+    color: rgb(69, 30, 105);
+    background-color: whitesmoke;
+}
+.section_content h1{
+    text-align: center;
+}
