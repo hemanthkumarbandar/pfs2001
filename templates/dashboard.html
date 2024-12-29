@@ -29,15 +29,21 @@
                 <a href="{{url_for('dashboard')}}">Home</a>
                 <select name="notes" id="notes" onchange="navigateTo(this.value)">
                     <option value="">Select Notes</option>
-                    <option value="{{ url_for('addnotes') }}">Create Notes</option>
+                    <option value="{{url_for('addnotes')}}">Add_Notes</option>
                     <option value="{{url_for('viewallnotes')}}">View All Notes</option>
+                    <option value="{{url_for('getexceldata')}}">generate excel sheet</option>
                 </select>
                 <select name="files" id="files" onchange="navigateTo(this.value)">
                     <option value="">Select Files</option>
-                    <option value="">Upload File</option>
-                    <option value="">View All Files</option>
+                    <option value="{{url_for('uploadfile')}}">Upload File</option>
+                    <option value="{{url_for('viewallfiles')}}">View All Files</option>
                 </select>
-                <a href="{{url_for("home")}}">Logout</a>
+                <form action="{{url_for('search')}}" method="POST">
+                    <input type="text" class="search-bar" name="sname" placeholder="Search...">
+                    <button onclick="window.location.href='#'">Search</button>
+        
+                </form>
+                <a href="{{url_for('home')}}">Logout</a>
                 <p>{{session.get('user')}}
                 <i class="fa-regular fa-user"></i></p>
             </nav>
@@ -46,4 +52,30 @@
     </section>
 {% block content %}{% endblock %}
 </body>
+{% if sdata %}
+<table border="1px">
+    <thead>
+        <tr>
+            <th>Notes_id</th>
+            <th>Title</th>
+            <!-- <th>description</th> -->
+            <th>Created_At</th>
+            <th>link</th>
+             
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in sdata %}
+        <tr>
+            <td>{{i[0]}}</td>
+            <td>{{i[1]}}</td>
+            <td>{{i[3]}}</td>
+            <td><a href="{{url_for('viewnotes',nid=i[0])}}">View</a></td>
+            <td><a href="{{url_for('updatenotes',nid=i[0])}}">Update</a></td>
+            <td><a href="{{url_for('deletenotes',nid=i[0])}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 </html>

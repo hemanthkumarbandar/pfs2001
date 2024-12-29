@@ -1,9 +1,11 @@
 body{
-    background-image: url("https://nkgadyar.scientificstudy.in/images/LoginPage/loginImage.jpg");
+    background-image: url("https://wallpapercave.com/wp/wp4430570.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #d9f9fa;
-
+    color: aliceblue;
+    text-align: center;
+    margin-top: 5%;
 }
 body a{
     border: 3px solid #542694;
@@ -16,6 +18,7 @@ body a{
     display: inline-block; /* Allows width to take effect */
     width: 14%;
     text-align: center;
+    
 }
 body a:hover{
     background-color: transparent;

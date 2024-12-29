@@ -3,7 +3,7 @@
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
-    background-color: whitesmoke;
+    background-color: rgb(213, 127, 22);
     color: rgb(69, 30, 105);
     font-size: 23px;
 }
@@ -12,7 +12,7 @@
 }
 body{
     margin: 0%;
-    background-image: url("https://cdn.prod.website-files.com/5a9ee6416e90d20001b20038/64f5dd642638a92e7481b053_Rectangle%20(70).svg");
+    background-image: url("https://cdn.wallpapersafari.com/95/78/HCxG6X.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
