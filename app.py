@@ -114,85 +114,84 @@ def addnotes():
             return "Something went wrong"
     return render_template("addnotes.html")
 @app.route('/viewallnotes',methods=['POST',"GET"])
-def viewallnotes():
-    try:
-        cursor=mydb.cursor(buffered=True)
-        cursor.execute("select user_id from users where useremail=%s",[session.get('user')])
-        uid=cursor.fetchone()
-        cursor.execute('select n_id,title,create_at from notes where user_id=%s',[uid[0]])
-        result=cursor.fetchall()
-        print(result)
-    except Exception as e:
-        print(e)
-        return redirect(url_for("dashboard"))
-    else:
-        return render_template("viewallnotes.html",result=result)
-@app.route('/viewnotes/<uid>')
-def viewnotes(uid):
-    try:
-        cursor=mydb.cursor(buffered=True)
-        cursor.execute("select * from notes where n_id=%s",[uid])
-        notes=cursor.fetchone()
-    except Exception as e:
-        print(e)
-        return redirect(url_for("viewallnotes"))
-    else:
-        return render_template("viewnotes.html",notes=notes)
-@app.route("/updatenotes/<uid>",methods=["POST","GET"])
-def updatenotes(uid):
-    cursor=mydb.cursor(buffered=True)
-    cursor.execute("select * from notes where n_id=%s",[uid])
-    notes=cursor.fetchone()
-    if request.method=="POST":
-        try:
-            title=request.form["title"]
-            desc=request.form["desc"]
-            cursor=mydb.cursor(buffered=True)
-            cursor.execute('update notes set title=%s,n_description=%s where n_id=%s',[title,desc,uid])
-            mydb.commit()
-            cursor.close()
-        except Exception as e:
-            print(e)
-        else:
-            flash("Notes updates successfully")
-            return redirect(url_for('dashboard'))
-    return render_template("updatenotes.html",notes=notes)
-@app.route("/deletenotes/<uid>",methods=["POST","GET"])
-def deletenotes(uid):
-    try:
-        cursor=mydb.cursor(buffered=True)
-        cursor.execute("delete from notes where n_id=%s",[uid])
-        mydb.commit()
-        cursor.close()
-    except Exception as e:
-        print(e)
-    else:
-        flash("Deleted successfully")
-        return redirect(url_for("viewallnotes"))
-@app.route('/search',methods=['GET','POST'])
-def search():
-    if session.get('user'):
-        try:
-            if request.method=='POST':
-                sdata=request.form['sname'] #''python',s22
-                strg=['A-Za-z0-9']
-                pattern=re.compile(f'^{strg}',re.IGNORECASE)
-                if (pattern.match(sdata)):
-                    cursor=mydb.cursor(buffered=True)
-                    cursor.execute('select * from notes where nid like %s or title like %s or ndescription like %s or create_at like %s',[sdata+'%',sdata+'%',sdata+'%',sdata+'%'])
-                    sdata=cursor.fetchall()
-                    cursor.close()
-                    return render_template('dashboard.html',sdata=sdata)
-                else:
-                    flash('no data found')
-                    return redirect(url_for('dashboard'))
-            else:
-                return redirect(url_for('dashboard'))
-        except Exception as e:
-            print(e)
-            flash('Cantfind anything')
-            return redirect(url_for('login'))
-    else:
-        return redirect(url_for('login'))
-        
-app.run(use_reloader=True,debug=True)
+# def viewallnotes():
+#     try:
+#         cursor=mydb.cursor(buffered=True)
+#         cursor.execute("select user_id from users where useremail=%s",[session.get('user')])
+#         uid=cursor.fetchone()
+#         cursor.execute('select n_id,title,create_at from notes where user_id=%s',[uid[0]])
+#         result=cursor.fetchall()
+#         print(result)
+#     except Exception as e:
+#         print(e)
+#         return redirect(url_for("dashboard"))
+#     else:
+#         return render_template("viewallnotes.html",result=result)
+# @app.route('/viewnotes/<uid>')
+# def viewnotes(uid):
+#     try:
+#         cursor=mydb.cursor(buffered=True)
+#         cursor.execute("select * from notes where n_id=%s",[uid])
+#         notes=cursor.fetchone()
+#     except Exception as e:
+#         print(e)
+#         return redirect(url_for("viewallnotes"))
+#     else:
+#         return render_template("viewnotes.html",notes=notes)
+# @app.route("/updatenotes/<uid>",methods=["POST","GET"])
+# def updatenotes(uid):
+#     cursor=mydb.cursor(buffered=True)
+#     cursor.execute("select * from notes where n_id=%s",[uid])
+#     notes=cursor.fetchone()
+#     if request.method=="POST":
+#         try:
+#             title=request.form["title"]
+#             desc=request.form["desc"]
+#             cursor=mydb.cursor(buffered=True)
+#             cursor.execute('update notes set title=%s,n_description=%s where n_id=%s',[title,desc,uid])
+#             mydb.commit()
+#             cursor.close()
+#         except Exception as e:
+#             print(e)
+#         else:
+#             flash("Notes updates successfully")
+#             return redirect(url_for('dashboard'))
+#     return render_template("updatenotes.html",notes=notes)
+# @app.route("/deletenotes/<uid>",methods=["POST","GET"])
+# def deletenotes(uid):
+#     try:
+#         cursor=mydb.cursor(buffered=True)
+#         cursor.execute("delete from notes where n_id=%s",[uid])
+#         mydb.commit()
+#         cursor.close()
+#     except Exception as e:
+#         print(e)
+#     else:
+#         flash("Deleted successfully")
+#         return redirect(url_for("viewallnotes"))
+# @app.route('/search',methods=['GET','POST'])
+# def search():
+#     if session.get('user'):
+#         try:
+#             if request.method=='POST':
+#                 sdata=request.form['sname'] #''python',s22
+#                 strg=['A-Za-z0-9']
+#                 pattern=re.compile(f'^{strg}',re.IGNORECASE)
+#                 if (pattern.match(sdata)):
+#                     cursor=mydb.cursor(buffered=True)
+#                     cursor.execute('select * from notes where nid like %s or title like %s or ndescription like %s or create_at like %s',[sdata+'%',sdata+'%',sdata+'%',sdata+'%'])
+#                     sdata=cursor.fetchall()
+#                     cursor.close()
+#                     return render_template('dashboard.html',sdata=sdata)
+#                 else:
+#                     flash('no data found')
+#                     return redirect(url_for('dashboard'))
+#             else:
+#                 return redirect(url_for('dashboard'))
+#         except Exception as e:
+#             print(e)
+#             flash('Cantfind anything')
+#             return redirect(url_for('login'))
+#     else:
+#         return redirect(url_for('login'))
+app.run(use_realoader=True)
